@@ -6,7 +6,7 @@ pages = []
 def request_to(path, pages)
   url = URI.parse('https://www.nta.go.jp/')
   resp = Net::HTTP.get(url.host, path)
-  title = resp.match(/<title>(.+)<\/title>/)
+  title = resp.match(/<title>(.+?)<\/title>/)
   
   unless title.nil? then
     pages.push(path)

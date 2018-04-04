@@ -1,0 +1,71 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TEST OF GITHUB PAGES</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./data.js"></script>
+  <script>
+    function init() {
+      var search = new Vue({
+        el: '#search',
+        data: {
+          keyword: ''
+        },
+        watch: {
+          keyword: function(newKeyword, oldKeyword) {
+            links.links = master.filter(page => 
+              page.title.includes(newKeyword)
+            );
+          }
+        }
+      });
+      var links = new Vue({
+        el: '#links',
+        data: {
+          links: master
+        }
+      });
+    }
+  </script>
+  <style type="text/css">
+    ol {
+      list-style: none;
+    }
+    input {
+      height: 32px;
+      width: 480px;
+      font-size: 20px;
+    }
+    .page {
+      margin-top: 32px;
+    }
+    .title {
+      font-size: 24px;
+      margin-bottom: 0px;
+    }
+    .link {
+      font-size: 16px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body onload="init()">
+  <h1>国税庁サイト内ページ簡易検索</h1>
+
+  <p>調べたい項目を入力してください。</p>
+  <div id="search">
+    <input v-model="keyword">
+  </div>
+  
+  <div id="links" class="page">
+    <ol>
+      <li v-for="link in links">
+        <p class="title">{{ link.title }}</p>
+        <p class="link"><a v-bind:href="link.url">{{ link.url }}</a></p>
+      </li>
+    </ol>
+  </div>
+</body>
+
+</html>

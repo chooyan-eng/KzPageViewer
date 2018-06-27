@@ -47,6 +47,9 @@
       font-size: 16px;
       margin-top: 4px;
     }
+    [v-cloak] {
+      display: none;
+    }
   </style>
 </head>
 
@@ -61,7 +64,7 @@
   
   <div id="links" class="page">
     <ol>
-      <li v-for="link in links">
+      <li v-for="link in links" v-cloak>
         <p class="title">{{ link.title }}</p>
         <p class="link"><a v-bind:href="link.url">{{ link.url }}</a></p>
       </li>

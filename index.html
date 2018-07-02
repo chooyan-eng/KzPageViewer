@@ -1,28 +1,22 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>国税庁サイト内ページ簡易検索/title>
+  <title>国税庁サイト内ページ簡易検索</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="./data.js"></script>
   <script>
     function init() {
       var search = new Vue({
-        el: '#search',
+        el: '#app',
         data: {
           keyword: ''
         },
-        watch: {
-          keyword: function(newKeyword, oldKeyword) {
-            links.links = master.filter(page => 
-              page.title.includes(newKeyword)
-            );
+        computed: {
+          links: function() {
+            return master.filter(function (page) {
+              return page.title.includes(this.keyword);
+            }, this);
           }
-        }
-      });
-      var links = new Vue({
-        el: '#links',
-        data: {
-          links: master
         }
       });
     }
@@ -58,18 +52,20 @@
   <p>by <a href="https://twitter.com/chooyan-i18n">@chooyan-i18n</a></p>
 
   <p>調べたい項目を入力してください。</p>
-  <div id="search">
-    <input v-model="keyword">
-  </div>
-  
-  <div id="links" class="page" v-cloak>
-    <ol>
-      <li v-for="link in links">
-        <p class="title">{{ link.title }}</p>
-        <p class="link"><a v-bind:href="link.url">{{ link.url }}</a></p>
-      </li>
-    </ol>
-  </div>
+  <div id="app">
+    <div>
+      <input v-model="keyword">
+    </div>
+    
+    <div class="page" v-cloak>
+      <ol>
+        <li v-for="link in links">
+          <p class="title">{{ link.title }}</p>
+          <p class="link"><a v-bind:href="link.url">{{ link.url }}</a></p>
+        </li>
+      </ol>
+    </div>
+</div>
 </body>
 
 </html>

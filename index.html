@@ -47,6 +47,9 @@
       font-size: 16px;
       margin-top: 4px;
     }
+    [v-cloak] {
+      display: none;
+    }
   </style>
 </head>
 
@@ -59,7 +62,7 @@
     <input v-model="keyword">
   </div>
   
-  <div id="links" class="page">
+  <div id="links" class="page" v-cloak>
     <ol>
       <li v-for="link in links">
         <p class="title">{{ link.title }}</p>

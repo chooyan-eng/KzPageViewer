@@ -13,9 +13,9 @@
         },
         computed: {
           links: function() {
-            return master.filter(function (page) {
-              return page.title.includes(this.keyword);
-            }, this);
+            return master.filter(
+              page => page.title.includes(this.keyword)
+            , this);
           }
         }
       });
